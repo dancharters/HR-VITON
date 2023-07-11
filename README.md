@@ -51,6 +51,20 @@ Here are the download links for each model checkpoint:
 python3 test_generator.py --occlusion --cuda {True} --test_name {test_name} --tocg_checkpoint {condition generator ckpt} --gpu_ids {gpu_ids} --gen_checkpoint {image generator ckpt} --datasetting unpaired --dataroot {dataset_path} --data_list {pair_list_textfile}
 ```
 
+### Using CPU only
+The code you provided is designed to run with GPU support via the CUDA library. To adapt it to run on a CPU-only machine, such as a Mac M1, you will have to remove the --cuda {True} flag and make sure the --gpu_ids flag is set to -1, which usually signifies the use of CPU in PyTorch.
+
+The revised command might look something like this:
+
+```python
+python3 test_generator.py --occlusion --test_name {test_name} --tocg_checkpoint {condition generator ckpt} --gpu_ids -1 --gen_checkpoint {image generator ckpt} --datasetting unpaired --dataroot {dataset_path} --data_list {pair_list_textfile}
+```
+Please replace {test_name}, {condition generator ckpt}, {image generator ckpt}, {dataset_path}, and {pair_list_textfile} with appropriate values for your situation.
+
+Please note that while this will allow the code to run, the performance might be significantly slower without GPU acceleration, especially for larger models or larger datasets. If you're planning on doing a lot of heavy-duty machine learning, you might want to consider using a cloud-based solution or a system with a supported GPU.
+
+Also, remember that the actual code of test_generator.py must be prepared to handle execution without a GPU. If it's not, you may need to adjust the code to ensure it doesn't explicitly require CUDA.
+
 ## Train try-on condition generator
 
 ```python
